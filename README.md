@@ -1,15 +1,7 @@
-
 # Master Replica MariaDB in Kubernetes
 
-<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-<!-- ![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md)
-![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md)
-![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social)
-![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social) -->
-
 [![License](https://img.shields.io/badge/mit-blue.svg)](https://opensource.org/licenses/mit)
-[![CircleCI](https://circleci.com/gh/mariadb-kester/helmChartsDatabaseDemo.svg?style=svg)](https://circleci.com/gh/mariadb-kester/my-helm-charts)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/mariadb-kester/helmChartsDatabaseDemo/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/mariadb-kester/helmChartsDatabaseDemo/tree/main)
 ![GitHub stars](https://img.shields.io/github/stars/mariadb-kester/my-helm-charts?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/mariadb-kester/my-helm-charts?style=social)
 
@@ -31,13 +23,13 @@ To install *my-helm-repo*, follow these steps:
 To install the repository:
 
 ```
-helm repo add mariadb-kester-repo https://mariadb-kester.github.io/my-helm-charts/
+helm repo add mariadb-kester-repo https://mariadb-kester.github.io/helmChartsDatabaseDemo/
 ```
 
 To search repo:
 
 ```
-helm search repo kdr
+helm search repo mariadb-kester-repo
 ```
 
 To refresh repo:
