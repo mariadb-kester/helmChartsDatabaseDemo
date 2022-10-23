@@ -366,8 +366,8 @@ maxscale:
   enabled: true
   passive: true
   image:
-    registry: docker.io
-    repository: mariadb-kester/mdb-test-10-4-maxscale
+    registry: registry.digitalocean.com
+    repository: dev-kdr-demo/mariadb-maxscale
     tag: latest
     pullPolicy: Always
   masterOnlyService:

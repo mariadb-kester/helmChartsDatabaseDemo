@@ -489,14 +489,14 @@ maxscale:
   enabled: true
   passive: true
   notify:
-    email: kester.riley@mariadb.com
+    email: kesterriley@hotmail.com
   changeMaster:
     name1: none
     name2: none
     host1: none
     host2: none
   image:
-    registry: docker.io
+    registry: registry.digitalocean.com
     repository: mariadb-kester/mdb-test-10-4-maxscale
     tag: latest
     pullPolicy: Always
