@@ -8,8 +8,8 @@
 ![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social) -->
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![CircleCI](https://circleci.com/gh/mariadb-kester/my-helm-charts.svg?style=svg)](https://circleci.com/gh/mariadb-kester/my-helm-charts)
+[![License](https://img.shields.io/badge/mit-blue.svg)](https://opensource.org/licenses/mit)
+[![CircleCI](https://circleci.com/gh/mariadb-kester/helmChartsDatabaseDemo.svg?style=svg)](https://circleci.com/gh/mariadb-kester/my-helm-charts)
 ![GitHub stars](https://img.shields.io/github/stars/mariadb-kester/my-helm-charts?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/mariadb-kester/my-helm-charts?style=social)
 
