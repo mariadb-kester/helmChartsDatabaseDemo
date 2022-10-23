@@ -187,7 +187,7 @@ maxscaleConfigurationMaster: |-
     ## Kester Riley <kesterriley@hotmail.com>    ##
     ## March 2020                                ##
     ###############################################
-    [MaxScale]
+    [maxscale]
     # Enable or disable the substitution of environment variables in the MaxScale configuration file
     substitute_variables=true
     # Send output to Syslog 0 Disabled / 1 Enabled
@@ -300,7 +300,7 @@ maxscaleConfigurationPassive: |-
     ## Kester Riley <kesterriley@hotmail.com>    ##
     ## March 2020                                ##
     ###############################################
-    [MaxScale]
+    [maxscale]
     # Enable or disable the substitution of environment variables in the MaxScale configuration file
     substitute_variables=true
     # Send output to Syslog 0 Disabled / 1 Enabled
