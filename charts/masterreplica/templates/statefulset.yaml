@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "masterreplica.fullname" . }}
+  labels: {{- include "masterreplica.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "masterreplica.matchLabels" . | nindent 6 }}
+  replicas: 3
+  serviceName: {{ template "masterreplica.fullname" . }}
+  template:
+    metadata:
+      {{- if .Values.podAnnotations }}
+      annotations: {{- include "masterreplica.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
+      labels: {{- include "masterreplica.labels" . | nindent 8 }}
+    spec:
+      initContainers:
+      - name: init-mariadb
+        image: busybox
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ['sh', '-c', 'ordinal=`hostname | sed -r "s/([^0-9]*([0-9]*)){1}.*/\2/"`; echo [mysqld] > /mnt/conf.d/server-id.cnf; echo server-id=$((100 + $ordinal)) >> /mnt/conf.d/server-id.cnf; echo "log-basename=`hostname`" >> /mnt/conf.d/server-id.cnf;cp /mnt/configmap/* /mnt/conf.d;']
+        volumeMounts:
+        - name: conf
+          mountPath: /mnt/conf.d
+        - name: config-map
+          mountPath: /mnt/configmap
+      containers:
+      - name: mariadb
+        image: {{ template "masterreplica.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+#        - name: TRACE
+#          value: "y"
+        {{- if .Values.mariabackup.enabled }}
+        - name: BACKUPSTREAM
+          value: "yes"
+        {{- end }}
+        - name: SKIP_TZINFO
+          value: "y"
+        - name: MAXSCALE_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MAXSCALE_USER
+        - name: MASTERHOST
+          value: {{ template "masterreplica.fullname" . }}-0
+          # value: {{ .Values.maxscale.masterOnlyService.name }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+        - name: BACKUPSTREAM
+          value: {{ include "masterreplica.fullname" . }}-{{ .Values.mariabackup.backupServiceService.name }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+        - name: MAXSCALE_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MAXSCALE_USER_PASSWORD
+        - name: MAXSCALE_MONITOR_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MAXSCALE_MONITOR_USER
+        - name: MAXSCALE_MONITOR_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MAXSCALE_MONITOR_USER_PASSWORD
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MARIADB_USER
+        - name: MARIADB_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MARIADB_USER_PASSWORD
+        - name: REPLICATION_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: REPLICATION_USER
+        - name: REPLICATION_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: REPLICATION_USER_PASSWORD
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: ROOT_PASSWORD
+        - name: MARIABACKUP_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MARIABACKUP_USER
+        - name: MARIABACKUP_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: MARIABACKUP_USER_PASSWORD
+        - name: SYSTEM_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "masterreplica.fullname" . }}-secrets
+              key: ROOT_PASSWORD
+        args:
+          - no-galera
+        ports:
+        - name: mariadb
+          containerPort: 3306
+        volumeMounts:
+        - name: datadir
+          mountPath: {{ .Values.persistence.mountPath }}
+        - name: conf
+          mountPath: /etc/my.cnf.d
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        {{- if .Values.livenessProbe.enabled }}
+        livenessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        {{- end }}
+        {{- if .Values.readinessProbe.enabled }}
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        {{- end }}
+      volumes:
+      - name: conf
+        emptyDir: {}
+      - name: config-map
+        configMap:
+          name: {{ template "masterreplica.fullname" . }}-configuration
+          items:
+            - path: "docker.cnf"
+              key: docker.cnf
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+      labels:
+          app.kubernetes.io/name: {{ include "masterreplica.name" . }}
+          app.kubernetes.io/instance: {{ .Release.Name }}
+          app.kubernetes.io/managed-by: {{ .Release.Service }}
+    spec:
+      accessModes:
+        {{- range .Values.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size | quote }}
+      {{ include "masterreplica.storageClass" . }}

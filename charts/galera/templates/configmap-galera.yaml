@@ -1,0 +1,47 @@
+{{ if and (or (.Files.Glob "files/my.cnf") .Values.mariadbConfiguration) (not .Values.configurationConfigMap) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "galera.fullname" . }}-configuration
+  #namespace: galera
+  labels: {{- include "galera.labels" . | nindent 4 }}
+data:
+{{- if (.Files.Glob "files/my.cnf") }}
+{{ (.Files.Glob "files/my.cnf").AsConfig | indent 2 }}
+{{- else if .Values.mariadbConfiguration }}
+  docker.cnf: |
+{{ .Values.mariadbConfiguration | indent 4 }}
+{{- end }}
+{{ end }}
+{{ if and (or (.Files.Glob "files/my.cnf") .Values.maxscaleConfigurationMaster) (not .Values.configurationConfigMap) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "galera.fullname" . }}-maxscale-configuration-master
+  #namespace: galera
+  labels: {{- include "galera.labels" . | nindent 4 }}
+data:
+{{- if (.Files.Glob "files/my.cnf") }}
+{{ (.Files.Glob "files/my.cnf").AsConfig | indent 2 }}
+{{- else if .Values.maxscaleConfigurationMaster }}
+  maxscale.cnf: |
+{{ .Values.maxscaleConfigurationMaster | indent 4 }}
+{{- end }}
+{{ end }}
+{{ if and (or (.Files.Glob "files/my.cnf") .Values.maxscaleConfigurationPassive) (not .Values.configurationConfigMap) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "galera.fullname" . }}-maxscale-configuration-passive
+  #namespace: galera
+  labels: {{- include "galera.labels" . | nindent 4 }}
+data:
+{{- if (.Files.Glob "files/my.cnf") }}
+{{ (.Files.Glob "files/my.cnf").AsConfig | indent 2 }}
+{{- else if .Values.maxscaleConfigurationPassive }}
+  maxscale.cnf: |
+{{ .Values.maxscaleConfigurationPassive | indent 4 }}
+{{- end }}
+{{ end }}

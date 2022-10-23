@@ -1,0 +1,136 @@
+{{- if .Values.maxscale.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "galera.fullname" . }}-maxscale-active
+  labels: {{- include "galera.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "galera.selectorLabels" . | nindent 6 }}-maxscale
+  template:
+    metadata:
+      labels:
+        {{- include "galera.selectorLabels" . | nindent 8 }}-maxscale
+      {{- if .Values.podAnnotations }}
+      annotations: {{- include "galera.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
+    spec:
+      containers:
+      {{- if .Values.maxscale.metrics.enabled }}
+      - name: exporter
+        image: "{{ .Values.maxscale.metrics.image.repository }}:{{ .Values.maxscale.metrics.image.tag }}"
+        imagePullPolicy: {{ .Values.maxscale.metrics.image.pullPolicy }}
+        ports:
+          - containerPort: 9195
+            name: prometheus
+            protocol: TCP
+        resources:
+  {{ toYaml .Values.maxscale.metrics.resources | indent 12 }}
+  {{- end }}
+- name: maxscale
+  image: "{{ .Values.maxscale.image.repository }}:{{ .Values.maxscale.image.tag }}"
+  imagePullPolicy: {{ .Values.maxscale.image.pullPolicy }}
+  env:
+    - name: CHANGE_MASTER_NAME_1
+      value: {{ .Values.maxscale.changeMaster.name1 }}
+    - name: CHANGE_MASTER_NAME_2
+      value: {{ .Values.maxscale.changeMaster.name2 }}
+    - name: CHANGE_MASTER_HOST_1
+      value: {{ .Values.maxscale.changeMaster.host1 }}
+    - name: CHANGE_MASTER_HOST_2
+      value: {{ .Values.maxscale.changeMaster.host2 }}
+    - name: NOTIFY_EMAIL
+      value: {{ .Values.maxscale.notify.email }}
+    - name: MASTER_ONLY_LISTEN_ADDRESS
+      value: 0.0.0.0
+    - name: READ_WRITE_LISTEN_ADDRESS
+      value: 0.0.0.0
+    - name: MAX_SERVER
+      value: "Active"
+    - name: DB1_ADDRESS
+      value: {{ template "galera.fullname" . }}-0.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+    - name: DB2_ADDRESS
+    value: {{ template "galera.fullname" . }}-1.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+    - name: DB3_ADDRESS
+    value: {{ template "galera.fullname" . }}-2.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+    - name: MARIADB_USER
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "galera.fullname" . }}-secrets
+        key: MARIADB_USER
+    - name: MARIADB_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: MARIADB_USER_PASSWORD
+    - name: MAXSCALE_USER
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: MAXSCALE_USER
+    - name: MAXSCALE_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: MAXSCALE_USER_PASSWORD
+    - name: MAXSCALE_MONITOR_USER
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: MAXSCALE_MONITOR_USER
+    - name: MAXSCALE_MONITOR_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: MAXSCALE_MONITOR_USER_PASSWORD
+    - name: REPLICATION_USER
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: REPLICATION_USER
+    - name: REPLICATION_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ template "galera.fullname" . }}-secrets
+          key: REPLICATION_USER_PASSWORD
+  ports:
+    - name: {{ .Values.maxscale.masterOnlyService.name }}
+      containerPort: {{ .Values.maxscale.masterOnlyService.port }}
+    - name: {{ .Values.maxscale.rwService.name }}
+      containerPort: {{ .Values.maxscale.rwService.port }}
+  volumeMounts:
+    - name: "config"
+      mountPath: "/etc/maxscale.cnf"
+      subPath: "maxscale.cnf"
+  livenessProbe:
+    tcpSocket:
+      port: {{ .Values.maxscale.masterOnlyService.name }}
+    initialDelaySeconds: 3
+    periodSeconds: 3
+  readinessProbe:
+    tcpSocket:
+      port: {{ .Values.maxscale.masterOnlyService.name }}
+    initialDelaySeconds: 3
+    periodSeconds: 3
+  resources:
+  {{ toYaml .Values.resources | indent 12 }}
+  {{- with .Values.maxscale.nodeSelector }}
+nodeSelector:
+  {{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.maxscale.affinity }}
+affinity:
+  {{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.maxscale.tolerations }}
+tolerations:
+  {{ toYaml . | indent 8 }}
+  {{- end }}
+restartPolicy: {{ .Values.maxscale.restartPolicy }}
+  {{- end }}
+volumes:
+  - name: "config"
+    configMap:
+      name: {{ template "galera.fullname" . }}-maxscale-configuration-master
