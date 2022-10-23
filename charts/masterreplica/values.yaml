@@ -30,7 +30,7 @@ persistence:
   accessModes:
     - ReadWriteOnce
   size: 10Gi
-  storageClass: "standard"
+  storageClass: "do-block-storage"
 
 podSecurityContext: {}
   # fsGroup: 2000
