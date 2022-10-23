@@ -3,6 +3,20 @@ entries:
   galera:
   - apiVersion: v1
     appVersion: 1.16.1
+    created: "2022-10-23T19:11:52.234575777Z"
+    description: A Helm chart for creating MariaDB Galera Cluster with MaxScale
+    digest: 68782e1c9e6c927f682d59c3163f6912340023430446e4ef54217b0760b9f6ef
+    home: http://github.com/mariadb-kester/helmChartsDatabaseDemo
+    maintainers:
+    - email: kesterriley@hotmail.com
+      name: kesterriley
+      url: https://github.com/mariadb-kester
+    name: galera
+    urls:
+    - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/galera-0.2.4/galera-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v1
+    appVersion: 1.16.1
     created: "2022-10-23T18:59:12.89895899Z"
     description: A Helm chart for creating MariaDB Galera Cluster with MaxScale
     digest: 25ecb366817722509b88beca23436c349d1de29eb5fb1dd1497fe1732e773e2e
@@ -58,6 +72,20 @@ entries:
     - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/galera-0.1.37/galera-0.1.37.tgz
     version: 0.1.37
   masterreplica:
+  - apiVersion: v1
+    appVersion: 1.16.0
+    created: "2022-10-23T19:11:52.342791836Z"
+    description: A Helm chart for deplying a master and replica MariaDB Database installation
+    digest: dae4080a11ee96e97670d48cac3359bff10b33142ded9c0de54374356816dc82
+    home: http://github.com/mariadb-kester/helmChartsDatabaseDemo
+    maintainers:
+    - email: kesterriley@hotmail.com
+      name: kesterriley
+      url: https://github.com/mariadb-kester
+    name: masterreplica
+    urls:
+    - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/masterreplica-0.2.1/masterreplica-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v1
     appVersion: 1.16.0
     created: "2022-10-23T15:59:40.994059142Z"
