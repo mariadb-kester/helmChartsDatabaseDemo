@@ -6,3 +6,4 @@ target-branch: main
 validate-chart-schema: true
 validate-maintainers: true
 validate-yaml: true
+
