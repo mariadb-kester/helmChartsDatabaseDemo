@@ -109,7 +109,7 @@ persistence:
   mountPath: /var/lib/mysql
   annotations:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: 15Gi
   ## Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -581,6 +581,6 @@ job:
     purgeDays: 7
     annotations:
     accessModes:
-      - ReadWriteOnce
+      - ReadWriteMany
     size: 10Gi
     storageClass: "do-block-storage"
