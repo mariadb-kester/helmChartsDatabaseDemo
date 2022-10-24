@@ -3,6 +3,20 @@ entries:
   galera:
   - apiVersion: v1
     appVersion: 1.16.4
+    created: "2022-10-24T11:44:32.359912293Z"
+    description: A Helm chart for creating MariaDB Galera Cluster with MaxScale
+    digest: bd007070f9e1bf2ed0f1205f9bbb6ff4acd20c59f1abf80e652746a87e4400dd
+    home: http://github.com/mariadb-kester/helmChartsDatabaseDemo
+    maintainers:
+    - email: kesterriley@hotmail.com
+      name: kesterriley
+      url: https://github.com/mariadb-kester
+    name: galera
+    urls:
+    - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/galera-0.2.10/galera-0.2.10.tgz
+    version: 0.2.10
+  - apiVersion: v1
+    appVersion: 1.16.4
     created: "2022-10-24T10:02:16.07605408Z"
     description: A Helm chart for creating MariaDB Galera Cluster with MaxScale
     digest: 752cfe2285db50606b4237d4a5b7c2fa87b0e0843d98081f6d8fb3bd9bc327f9
