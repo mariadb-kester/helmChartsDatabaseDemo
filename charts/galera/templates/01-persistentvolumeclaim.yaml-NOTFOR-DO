@@ -1,0 +1,56 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: datadir-{{ include "galera.fullname" . }}-0
+  #namespace: galera
+spec:
+  accessModes:
+    {{- range .Values.persistence.accessModes }}
+      - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{ include "galera.storageClass" . }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: datadir-{{ include "galera.fullname" . }}-1
+  #namespace: galera
+spec:
+  accessModes:
+    {{- range .Values.persistence.accessModes }}
+      - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{ include "galera.storageClass" . }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: datadir-{{ include "galera.fullname" . }}-2
+  #namespace: galera
+spec:
+  accessModes:
+    {{- range .Values.persistence.accessModes }}
+      - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{ include "galera.storageClass" . }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mariadb-{{ include "galera.fullname" . }}-pvc
+  #namespace: galera
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteMany
