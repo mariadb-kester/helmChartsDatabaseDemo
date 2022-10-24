@@ -54,18 +54,3 @@ spec:
     matchLabels:
       app: {{ include "galera.fullname" . }}
       podindex: "2"
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: mariadb-{{ include "galera.fullname" . }}-pvc
-  #namespace: galera
-spec:
-  resources:
-    requests:
-      storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  selector:
-    matchLabels:
-      volume: {{ include "galera.fullname" . }}-pvc
