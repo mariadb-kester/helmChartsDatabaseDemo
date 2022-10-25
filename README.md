@@ -257,13 +257,6 @@ To contribute to this *helmChartsDatabaseDemo* repository, follow these steps:
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-### Contributors
-
-Thanks to the following people who have contributed to this project:
-
-* [@kesterriley](https://github.com/kesterriley)
-* [@swade1987](https://github.com/swade1987)
-
 ### Contact
 
 If you want to contact me you can reach me at kesterriley@hotmail.com.
