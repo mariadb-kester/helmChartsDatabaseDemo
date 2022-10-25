@@ -39,7 +39,7 @@ spec:
             value: {{ .Values.galera.domainId | quote }}
           - name: AUTO_INCREMENT_OFFSET
             value: {{ .Values.galera.autoIncrementOffset | quote }}
-        command: ['sh', '-c', 'ordinal=`hostname | sed -r "s/([^0-9]*([0-9]*)){1}.*/\2/"`; if [ $ordinal = 0 ]; then touch /var/lib/mysql/new-cluster; fi; echo [mysqld] > /mnt/conf.d/server-id.cnf; echo server-id=${DOMAIN_ID:-100} >> /mnt/conf.d/server-id.cnf; echo wsrep_gtid_domain_id=${DOMAIN_ID:-100} >> /mnt/conf.d/server-id.cnf; echo gtid_domain_id=100${DOMAIN_ID:-100}${ordinal} >> /mnt/conf.d/server-id.cnf; echo auto_increment_offset=$((${AUTO_INCREMENT_OFFSET:-0} + $ordinal)) >> /mnt/conf.d/server-id.cnf; cp /mnt/configmap/* /mnt/conf.d;']
+        command: ['sh', '-c', 'ordinal=`hostname | sed -r "s/([^0-9]*([0-9]*)){1}.*/\2/"`; chmod -R 777 /var/lib/mysql; if [ $ordinal = 0 ]; then touch /var/lib/mysql/new-cluster; fi; -R  echo [mysqld] > /mnt/conf.d/server-id.cnf; echo server-id=${DOMAIN_ID:-100} >> /mnt/conf.d/server-id.cnf; echo wsrep_gtid_domain_id=${DOMAIN_ID:-100} >> /mnt/conf.d/server-id.cnf; echo gtid_domain_id=100${DOMAIN_ID:-100}${ordinal} >> /mnt/conf.d/server-id.cnf; echo auto_increment_offset=$((${AUTO_INCREMENT_OFFSET:-0} + $ordinal)) >> /mnt/conf.d/server-id.cnf; cp /mnt/configmap/* /mnt/conf.d;']
         volumeMounts:
         - name: conf
           mountPath: /mnt/conf.d
