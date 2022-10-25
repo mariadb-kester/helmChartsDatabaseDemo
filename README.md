@@ -2,23 +2,47 @@
 
 [![License](https://img.shields.io/badge/mit-blue.svg)](https://opensource.org/licenses/mit)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/mariadb-kester/helmChartsDatabaseDemo/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/mariadb-kester/helmChartsDatabaseDemo/tree/main)
-![GitHub stars](https://img.shields.io/github/stars/mariadb-kester/my-helm-charts?style=social)
-![GitHub forks](https://img.shields.io/github/forks/mariadb-kester/my-helm-charts?style=social)
+![GitHub stars](https://img.shields.io/github/stars/mariadb-kester/helmChartsDatabaseDemo?style=social)
+![GitHub forks](https://img.shields.io/github/forks/mariadb-kester/helmChartsDatabaseDemo?style=social)
 
 This project contains two helm charts that will install a **Galera Cluster** or a **Master and two Replica** MariaDB servers, sitting behind a pair of Maxscale proxy servers, providing fail over and master down detection and promotion.
 
-**THIS PROJECT IS NOT FOR USE IN PRODUCTION**
+----
 
-## Prerequisites
+## To Use
+
+### Terms of use
+
+**Nothing in this demonstration is designed to be used in production and this is not supplied, supported or endorsed by
+MariaDB.**
+
+### CircleCI
+
+This repository is designed to use [CircleCI](https://circleci.com) to build the application.
+
+CircleCI is used to run tests against the code when checked in. 
+
+### GitHub Actions
+
+When committing the code to Git, GitHub Actions are used, if CircleCI successfully passes the tests.
+This generates helm objects which are stored on GitHub pages. These are public and you must therefore make sure no 
+private information is committed.
+
+You can run and use these GitHub Helm Repo pages without needing to clone or fork this project.
+
+**This means that you need to bump the chart number each time to make a new chart**
+
+### Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 <!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have a working Kubernetes Environment, in this example [Minikube](https://github.com/mariadb-kester/my-helm-charts/guides/minikube/README.md)
-* * You must also have [Helm](https://github.com/mariadb-kester/my-helm-charts/guides/helm/README.md) installed.
+* You have a working Kubernetes Environment, in this example [Minikube](https://github.com/mariadb-kester/helmChartsDatabaseDemo/guides/minikube/README.md)
+* Instead of using minikube you could use DigitalOcean or any other Kubernetes environment.
+* You must also have [Helm](https://github.com/mariadb-kester/helmChartsDatabaseDemo/guides/helm/README.md) installed.
 
-## Installing *my-helm-repo*
+### Installing *helmChartsDatabaseDemo*
 
-To install *my-helm-repo*, follow these steps:
+To install *helmChartsDatabaseDemo*, follow these steps:
 
 To install the repository:
 
@@ -44,9 +68,9 @@ To remove repo:
 helm repo remove mariadb-kester-repo
 ```
 
-## Using *my-helm-repo*
+### Using *helmChartsDatabaseDemo*
 
-To use *my-helm-repo*, follow these steps:
+To use *helmChartsDatabaseDemo*, follow these steps:
 
 Building a Master / Replica cluster:
 
@@ -70,7 +94,7 @@ Additional helm configuration options
 | Change master on failover name  | --set maxscale.changeMaster.name1=uktousauto |
 | Change master on failover FQDN  | --set maxscale.changeMaster.host1=usdc-galera-masteronly.us.svc.cluster.local |
 
-## Advanced uses
+### Advanced uses
 
 ### Port Forwarding
 
@@ -140,7 +164,7 @@ clusterip=192.168.64.2
 portnumber=30945
 ```
 
-## Demonstration
+### Demonstration
 
 To demonstrate accessing and writting to the cluster.
 
@@ -221,31 +245,37 @@ mariadb -uMARIADB_USER -pmariadb -h$clusterip -P$portnumber demo -e 'SELECT DIST
 +-----------------------------+
 ```
 
-## Contributing to *my-helm-repo*
+### Contributing to *helmChartsDatabaseDemo*
 <!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to *my-helm-repo*, follow these steps:
+To contribute to this *helmChartsDatabaseDemo* repository, follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
 3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin my-helm-repo/<location>`
+4. Push to the original branch: `git push origin helmChartsDatabaseDemo/<location>`
 5. Create the pull request.
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-## Contributors
+### Contributors
 
 Thanks to the following people who have contributed to this project:
 
 * [@kesterriley](https://github.com/kesterriley)
 * [@swade1987](https://github.com/swade1987)
 
-
-## Contact
+### Contact
 
 If you want to contact me you can reach me at kesterriley@hotmail.com.
 
-## License
+### License
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [MIT](https://github.com/mariadb-kester/my-helm-charts/blob/master/LICENSE).
+This project uses the following license: [MIT](https://github.com/mariadb-kester/helmChartsDatabaseDemp/blob/master/LICENSE).
+
+
+### Disclaimer
+
+Whilst, I might currently work for MariaDB, this work was originally created before my employment by MariaDB and any
+development to these scripts is done strictly in my own time. It is therefore not endorsed, supported by or
+recommend by MariaDB. 

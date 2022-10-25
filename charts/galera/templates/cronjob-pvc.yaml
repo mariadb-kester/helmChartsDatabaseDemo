@@ -15,6 +15,3 @@ spec:
     requests:
       storage: {{ .Values.job.persistence.size | quote }}
   {{ include "cronjob.storageClass" . }}
-  selector:
-    matchLabels:
-      id: backupdir

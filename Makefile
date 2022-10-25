@@ -24,7 +24,7 @@ init:
 	@echo "	buildGaleraClusterEUCloneFromUSWithMaxscaleReplication"
 	@echo ""
 	@echo "Before any of this works you must install the helm repo:"
-	@echo "... helm repo add mariadb-kester-repo https://mariadb-kester.github.io/my-helm-charts/"
+	@echo "... helm repo add mariadb-kester-repo https://mariadb-kester.github.io/helmChartsDatabaseDemo/"
 	@echo "... or to update: helm repo update"
 	@echo ""
 	@echo ""
