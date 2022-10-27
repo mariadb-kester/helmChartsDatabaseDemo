@@ -29,7 +29,7 @@ persistence:
   annotations:
   accessModes:
     - ReadWriteOnce
-  size: 10Gi
+  size: 1Gi
   storageClass: "do-block-storage"
 
 podSecurityContext: {}
