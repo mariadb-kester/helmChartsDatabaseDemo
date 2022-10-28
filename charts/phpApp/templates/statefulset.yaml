@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "phpApp.fullname" . }}
+  labels: {{- include "phpApp.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "phpApp.matchLabels" . | nindent 6 }}
+  replicas: 3
+  serviceName: {{ template "phpApp.fullname" . }}
+  template:
+    metadata:
+      {{- if .Values.podAnnotations }}
+      annotations: {{- include "phpApp.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
+      labels: {{- include "phpApp.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: mariadb
+        image: {{ template "phpApp.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "phpApp.fullname" . }}-secrets
+              key: MARIADB_USER
+        - name: MARIADB_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "phpApp.fullname" . }}-secrets
+              key: MARIADB_USER_PASSWORD
+        - name: MARIADB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "phpApp.fullname" . }}-secrets
+              key: MARIADB_HOST
+        - name: MARIADB_DB
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "phpApp.fullname" . }}-secrets
+              key: MARIADB_DB
+        ports:
+        - name: mariadb
+          containerPort: 80
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        {{- if .Values.livenessProbe.enabled }}
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: /healthz.html
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        {{- end }}
+        {{- if .Values.readinessProbe.enabled }}
+        readinessProbe:
+          tcpSocket:
+            port: 80
+            path: /healthz.html
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        {{- end }}
