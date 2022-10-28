@@ -19,18 +19,3 @@
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:80
 {{- end }}
-
-To access the Read / Write Split connection : {{ .Values.maxscale.rwService.name }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
-To access the Master Only connection: {{ .Values.maxscale.masterOnlyService.name }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
-
-Set an Environment variable to the maxscale server:
-MAXACTIVE=xxxx
-
-To check the status of MaxScale :
-  kubectl exec -it -n {{ .Release.Namespace }} $MAXACTIVE -- maxctrl list servers
-
-To put a server in to maintenance mode :
-  kubectl exec -it -n {{ .Release.Namespace }} $MAXACTIVE -- maxctrl set server db1 maintenance
-
-To clear a server from maintenance mode:
-  kubectl exec -it -n {{ .Release.Namespace }} $MAXACTIVE -- maxctrl clear server db1 maintenance
