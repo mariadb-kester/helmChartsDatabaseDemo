@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "phpapp.fullname" . }}-0
+  name: {{ template "phpapp.fullname" . }}
   #namespace: phpapp
   labels:
-    name: {{ template "phpapp.fullname" . }}-0
+    name: {{ template "phpapp.fullname" . }}
 spec:
   ports:
   - port: 80
