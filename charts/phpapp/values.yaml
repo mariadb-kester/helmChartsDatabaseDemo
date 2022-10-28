@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   registry: registry.digitalocean.com
-  repository: dev-kdr-demo/website
+  repository: mariadb-kester-kdr-demo/website
   tag: latest
   pullPolicy: Always
 
