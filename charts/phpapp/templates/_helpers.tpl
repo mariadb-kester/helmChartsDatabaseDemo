@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "phpApp.name" -}}
+{{- define "phpapp.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "phpApp.fullname" -}}
+{{- define "phpapp.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "phpApp.chart" -}}
+{{- define "phpapp.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "phpApp.labels" -}}
-helm.sh/chart: {{ include "phpApp.chart" . }}
-{{ include "phpApp.selectorLabels" . }}
+{{- define "phpapp.labels" -}}
+helm.sh/chart: {{ include "phpapp.chart" . }}
+{{ include "phpapp.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,17 +46,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "phpApp.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "phpApp.name" . }}
+{{- define "phpapp.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "phpapp.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "phpApp.serviceAccountName" -}}
+{{- define "phpapp.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "phpApp.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "phpapp.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
@@ -67,7 +67,7 @@ Create the name of the service account to use
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "phpApp.imagePullSecrets" -}}
+{{- define "phpapp.imagePullSecrets" -}}
 {{/*
 Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
 but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else logic.
@@ -103,7 +103,7 @@ imagePullSecrets:
 {{/*
 Return the proper MariaDB Galera image name
 */}}
-{{- define "phpApp.image" -}}
+{{- define "phpapp.image" -}}
 {{- $registryName := .Values.image.registry -}}
 {{- $repositoryName := .Values.image.repository -}}
 {{- $tag := .Values.image.tag | toString -}}
@@ -128,7 +128,7 @@ Also, we can't use a single if because lazy evaluation is not an option
 {{/*
 Return the proper Storage Class
 */}}
-{{- define "phpApp.storageClass" -}}
+{{- define "phpapp.storageClass" -}}
 {{/*
 Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
 but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else logic.
@@ -164,7 +164,7 @@ but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else 
 {{/*
 Labels to use on deploy.spec.selector.matchLabels and svc.spec.selector
 */}}
-{{- define "phpApp.matchLabels" -}}
-app.kubernetes.io/name: {{ include "phpApp.name" . }}
+{{- define "phpapp.matchLabels" -}}
+app.kubernetes.io/name: {{ include "phpapp.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}

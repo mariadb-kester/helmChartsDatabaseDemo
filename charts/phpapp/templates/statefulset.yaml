@@ -1,44 +1,44 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ template "phpApp.fullname" . }}
-  labels: {{- include "phpApp.labels" . | nindent 4 }}
+  name: {{ template "phpapp.fullname" . }}
+  labels: {{- include "phpapp.labels" . | nindent 4 }}
 spec:
   selector:
-    matchLabels: {{- include "phpApp.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "phpapp.matchLabels" . | nindent 6 }}
   replicas: 3
-  serviceName: {{ template "phpApp.fullname" . }}
+  serviceName: {{ template "phpapp.fullname" . }}
   template:
     metadata:
       {{- if .Values.podAnnotations }}
-      annotations: {{- include "phpApp.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      annotations: {{- include "phpapp.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
       {{- end }}
-      labels: {{- include "phpApp.labels" . | nindent 8 }}
+      labels: {{- include "phpapp.labels" . | nindent 8 }}
     spec:
       containers:
       - name: mariadb
-        image: {{ template "phpApp.image" . }}
+        image: {{ template "phpapp.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: MARIADB_USER
           valueFrom:
             secretKeyRef:
-              name: {{ template "phpApp.fullname" . }}-secrets
+              name: {{ template "phpapp.fullname" . }}-secrets
               key: MARIADB_USER
         - name: MARIADB_USER_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "phpApp.fullname" . }}-secrets
+              name: {{ template "phpapp.fullname" . }}-secrets
               key: MARIADB_USER_PASSWORD
         - name: MARIADB_HOST
           valueFrom:
             secretKeyRef:
-              name: {{ template "phpApp.fullname" . }}-secrets
+              name: {{ template "phpapp.fullname" . }}-secrets
               key: MARIADB_HOST
         - name: MARIADB_DB
           valueFrom:
             secretKeyRef:
-              name: {{ template "phpApp.fullname" . }}-secrets
+              name: {{ template "phpapp.fullname" . }}-secrets
               key: MARIADB_DB
         ports:
         - name: mariadb
