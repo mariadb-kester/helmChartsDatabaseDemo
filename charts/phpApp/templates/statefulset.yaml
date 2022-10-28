@@ -61,7 +61,7 @@ spec:
         {{- end }}
         {{- if .Values.readinessProbe.enabled }}
         readinessProbe:
-          tcpSocket:
+          httpGet:
             port: 80
             path: /healthz.html
             scheme: HTTP
