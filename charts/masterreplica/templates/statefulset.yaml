@@ -136,6 +136,9 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         {{- end }}
+      securityContext:
+        runAsUser: 100020100
+        runAsGroup: 0
       volumes:
       - name: conf
         emptyDir: {}
