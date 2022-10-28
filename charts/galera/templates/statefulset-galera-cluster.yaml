@@ -188,6 +188,11 @@ spec:
         - name: backupdir
           mountPath: {{ .Values.job.persistence.mountPath }}
         {{- end }}
+      securityContext:
+        runAsUser: 100020100
+        runAsGroup: 0
+        runAsNonRoot: true
+        fsGroup: 0
       volumes:
       - name: conf
         emptyDir: {}

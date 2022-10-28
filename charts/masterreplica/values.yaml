@@ -105,11 +105,11 @@ mariadbConfiguration: |-
 
 maxscaleConfigurationMaster: |-
     ###############################################
-    ## MaxScale configuration for Galera Cluster ##
+    ## MaxScale configuration for Async Cluster  ##
     ## Kester Riley <kester.riley@mariadb.com>   ##
     ## March 2020                                ##
     ###############################################
-    [MaxScale]
+    [maxscale]
     # Enable or disable the substitution of environment variables in the MaxScale configuration file
     substitute_variables=true
     # Send output to Syslog 0 Disabled / 1 Enabled
@@ -219,11 +219,11 @@ maxscaleConfigurationMaster: |-
 
 maxscaleConfigurationPassive: |-
     ###############################################
-    ## MaxScale configuration for Galera Cluster ##
+    ## MaxScale configuration for Async Cluster  ##
     ## Kester Riley <kester.riley@mariadb.com>   ##
     ## March 2020                                ##
     ###############################################
-    [MaxScale]
+    [maxscale]
     # Enable or disable the substitution of environment variables in the MaxScale configuration file
     substitute_variables=true
     # Send output to Syslog 0 Disabled / 1 Enabled
