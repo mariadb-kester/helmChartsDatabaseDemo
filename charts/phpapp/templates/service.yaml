@@ -9,6 +9,6 @@ spec:
   ports:
   - port: 80
     name: mariadb
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     statefulset.kubernetes.io/pod-name: {{ template "phpapp.fullname" . }}
