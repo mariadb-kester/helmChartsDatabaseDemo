@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{ template "phpapp.fullname" . }}
+      app: phpapp
   replicas: 2
   serviceName: {{ template "phpapp.fullname" . }}
   template:

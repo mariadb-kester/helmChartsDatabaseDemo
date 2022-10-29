@@ -10,4 +10,4 @@ spec:
     targetPort: 80
   type: ClusterIP
   selector:
-    app: {{ template "phpapp.fullname" . }}
+    app: phpapp
