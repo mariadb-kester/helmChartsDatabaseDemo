@@ -2,13 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ template "phpapp.fullname" . }}
-  #namespace: phpapp
   labels:
     name: {{ template "phpapp.fullname" . }}
 spec:
   ports:
   - port: 80
-    name: mariadb
-  type: LoadBalancer
+    targetPort: 80
+  type: ClusterIP
   selector:
-    statefulset.kubernetes.io/pod-name: {{ template "phpapp.fullname" . }}
+    app: {{ template "phpapp.fullname" . }}
