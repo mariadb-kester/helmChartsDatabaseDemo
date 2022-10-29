@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "phpapp.fullname" . }}
-  labels: {{- include "phpapp.labels" . | nindent 4 }}
+  name: phpadmin
 spec:
-  ports:
-  - port: 80
-    targetPort: 80
   type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
   selector:
-    app: phpapp
+    app: phpadmin

@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ template "phpapp.fullname" . }}
-  labels: {{- include "phpapp.labels" . | nindent 4 }}
+  name: phpadmin
 spec:
   selector:
     matchLabels:
@@ -11,10 +10,8 @@ spec:
   serviceName: {{ template "phpapp.fullname" . }}
   template:
     metadata:
-      {{- if .Values.podAnnotations }}
-      annotations: {{- include "phpapp.tplValue" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
-      {{- end }}
-      labels: {{- include "phpapp.labels" . | nindent 8 }}
+      labels:
+        app: phpadmin
     spec:
       containers:
       - name: mariadb
