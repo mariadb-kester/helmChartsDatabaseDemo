@@ -132,4 +132,5 @@ Labels to use on deploy.spec.selector.matchLabels and svc.spec.selector
 {{- define "phpapp.matchLabels" -}}
 app.kubernetes.io/name: {{ include "phpapp.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/app: phpapp
 {{- end -}}
