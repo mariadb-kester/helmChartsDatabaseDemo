@@ -5,7 +5,8 @@ metadata:
   labels: {{- include "phpapp.labels" . | nindent 4 }}
 spec:
   selector:
-    app: {{ template "phpapp.fullname" . }}
+    matchLabels:
+      app: {{ template "phpapp.fullname" . }}
   replicas: 2
   serviceName: {{ template "phpapp.fullname" . }}
   template:
