@@ -510,6 +510,20 @@ entries:
   phpapp:
   - apiVersion: v1
     appVersion: 1.1.2
+    created: "2022-10-29T12:00:53.144751539Z"
+    description: A Helm chart for deplying a php test application
+    digest: 4aa4097cc338b262bfaf2f09ac785da70a5f3c5cc14dec6a054d03ca70ea75d8
+    home: http://github.com/mariadb-kester/phpapp
+    maintainers:
+    - email: kesterriley@hotmail.com
+      name: kesterriley
+      url: https://github.com/mariadb-kester
+    name: phpapp
+    urls:
+    - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/phpapp-0.0.22/phpapp-0.0.22.tgz
+    version: 0.0.22
+  - apiVersion: v1
+    appVersion: 1.1.2
     created: "2022-10-29T10:28:04.652944853Z"
     description: A Helm chart for deplying a php test application
     digest: 081c9637546610bed552c4feeb1a00bcd84e02b821f2842bf867830088b59e9d
