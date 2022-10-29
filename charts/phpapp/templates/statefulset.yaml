@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: phpadmin
+  name: phpapp
 spec:
   selector:
     matchLabels:
@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: phpadmin
+        app: phpapp
     spec:
       containers:
       - name: mariadb
