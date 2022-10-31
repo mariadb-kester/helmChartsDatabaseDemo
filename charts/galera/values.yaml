@@ -158,7 +158,6 @@ mariadbConfiguration: |-
     init-connect = 'SET NAMES utf8'
     innodb_autoinc_lock_mode=2
     innodb_flush_log_at_trx_commit=2
-    innodb_lock_schedule_algorithm=FCFS
     interactive_timeout=60
     log_bin=mariadb-node
     log_slave_updates=1
