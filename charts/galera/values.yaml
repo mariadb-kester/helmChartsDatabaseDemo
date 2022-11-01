@@ -173,7 +173,6 @@ mariadbConfiguration: |-
     wsrep_notify_cmd=/usr/local/bin/notify.sh
     wsrep_provider_options="gcache.size=1024M; gcache.keep_pages_size=1024M; gcache.recover=yes; gcs.fc_factor=0.8;"
     wsrep_provider=/usr/lib64/galera/libgalera_enterprise_smm.so
-    wsrep_sst_auth=MARIABACKUP_USER:mariadb
     [sst]
     sst-syslog=-1
     progress=/tmp/mysql-console/fifo
