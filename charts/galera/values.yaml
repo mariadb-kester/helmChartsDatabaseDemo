@@ -168,7 +168,7 @@ mariadbConfiguration: |-
     skip-name-resolve
     skip-slave-start
     wait_timeout=60
-    wsrep_auto_increment_control=0
+    wsrep_auto_increment_control=OFF
     wsrep_gtid_mode=ON
     wsrep_notify_cmd=/usr/local/bin/notify.sh
     wsrep_provider_options="gcache.size=1024M; gcache.keep_pages_size=1024M; gcache.recover=yes; gcs.fc_factor=0.8;"
