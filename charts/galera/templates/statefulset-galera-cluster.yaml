@@ -50,7 +50,6 @@ spec:
         echo wsrep_gtid_domain_id=${DOMAIN_ID:-100} >> /mnt/conf.d/server-id.cnf;
         echo gtid_domain_id=100${DOMAIN_ID:-100}${ordinal} >> /mnt/conf.d/server-id.cnf;
         echo auto_increment_offset=$((${AUTO_INCREMENT_OFFSET:-0} + $ordinal)) >> /mnt/conf.d/server-id.cnf;
-        echo wsrep_sst_auth=backupuser:MariaDB_123 >> /mnt/conf.d/server-id.cnf;
         cp /mnt/configmap/* /mnt/conf.d;']
         volumeMounts:
         - name: conf
