@@ -40,7 +40,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.maxscale.guiserviceactive.name }}-active
+  name: {{ .Values.maxscale.guiserviceactive.name }}
   labels:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     helm.sh/chart: {{ include "masterreplica.chart" . }}
@@ -61,7 +61,7 @@ kind: Service
 metadata:
   name: {{ .Values.maxscale.guiservicepassive.name }}
   labels:
-    app.kubernetes.io/name: {{ include "masterreplica.name" . }}-passive
+    app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     helm.sh/chart: {{ include "masterreplica.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
