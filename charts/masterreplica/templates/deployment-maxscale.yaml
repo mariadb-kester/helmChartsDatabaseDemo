@@ -93,8 +93,8 @@ spec:
               containerPort: {{ .Values.maxscale.masterOnlyService.port }}
             - name: {{ .Values.maxscale.rwService.name }}
               containerPort: {{ .Values.maxscale.rwService.port }}
-            - name: {{ .Values.maxscale.guiservice-active.name }}
-              containerPort: {{ .Values.maxscale.guiservice-active.port }}
+            - name: {{ .Values.maxscale.guiserviceactive.name }}
+              containerPort: {{ .Values.maxscale.guiserviceactive.port }}
           volumeMounts:
           - name: "config"
             mountPath: "/etc/maxscale.cnf"
@@ -223,8 +223,8 @@ spec:
               containerPort: {{ .Values.maxscale.masterOnlyService.port }}
             - name: {{ .Values.maxscale.rwService.name }}
               containerPort: {{ .Values.maxscale.rwService.port }}
-            - name: {{ .Values.maxscale.guiservice-passive.name }}
-              containerPort: {{ .Values.maxscale.guiservice-passive.port }}
+            - name: {{ .Values.maxscale.guiservicepassive.name }}
+              containerPort: {{ .Values.maxscale.guiservicepassive.port }}
           volumeMounts:
           - name: "config"
             mountPath: "/etc/maxscale.cnf"

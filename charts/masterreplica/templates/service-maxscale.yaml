@@ -40,18 +40,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.maxscale.guiservice-active.name }}
+  name: {{ .Values.maxscale.guiserviceactive.name }}
   labels:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     helm.sh/chart: {{ include "masterreplica.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.maxscale.guiservice-active.type }}
+  type: {{ .Values.maxscale.guiserviceactive.type }}
   ports:
-    - name: {{ .Values.maxscale.guiservice-active.name }}
-      port: {{ .Values.maxscale.guiservice-active.port }}
-      targetPort: {{ .Values.maxscale.guiservice-active.targetPort }}
+    - name: {{ .Values.maxscale.guiserviceactive.name }}
+      port: {{ .Values.maxscale.guiserviceactive.port }}
+      targetPort: {{ .Values.maxscale.guiserviceactive.targetPort }}
   selector:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-maxscale
@@ -59,18 +59,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.maxscale.guiservice-passive.name }}
+  name: {{ .Values.maxscale.guiservicepassive.name }}
   labels:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     helm.sh/chart: {{ include "masterreplica.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.maxscale.guiservice-passive.type }}
+  type: {{ .Values.maxscale.guiservicepassive.type }}
   ports:
-    - name: {{ .Values.maxscale.guiservice-passive.name }}
-      port: {{ .Values.maxscale.guiservice-passive.port }}
-      targetPort: {{ .Values.maxscale.guiservice-passive.targetPort }}
+    - name: {{ .Values.maxscale.guiservicepassive.name }}
+      port: {{ .Values.maxscale.guiservicepassive.port }}
+      targetPort: {{ .Values.maxscale.guiservicepassive.targetPort }}
   selector:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-maxscale
