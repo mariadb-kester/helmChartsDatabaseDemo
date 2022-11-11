@@ -357,12 +357,12 @@ maxscale:
   guiserviceactive:
     type: ClusterIP
     port: 8989
-    name: guiservice-active
+    name: gui-active
     targetPort: 8989
   guiservicepassive:
     type: ClusterIP
     port: 8989
-    name: guiservice-passive
+    name: gui-passive
     targetPort: 8988
   replicaCount: 2
   metrics:
