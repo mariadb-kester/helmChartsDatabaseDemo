@@ -40,18 +40,37 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.maxscale.guiService.name }}
+  name: {{ .Values.maxscale.guiservice-active.name }}
   labels:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     helm.sh/chart: {{ include "masterreplica.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.maxscale.guiService.type }}
+  type: {{ .Values.maxscale.guiservice-active.type }}
   ports:
-    - name: {{ .Values.maxscale.guiService.name }}
-      port: {{ .Values.maxscale.guiService.port }}
-      targetPort: {{ .Values.maxscale.guiService.targetPort }}
+    - name: {{ .Values.maxscale.guiservice-active.name }}
+      port: {{ .Values.maxscale.guiservice-active.port }}
+      targetPort: {{ .Values.maxscale.guiservice-active.targetPort }}
+  selector:
+    app.kubernetes.io/name: {{ include "masterreplica.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-maxscale
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.maxscale.guiservice-passive.name }}
+  labels:
+    app.kubernetes.io/name: {{ include "masterreplica.name" . }}
+    helm.sh/chart: {{ include "masterreplica.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.maxscale.guiservice-passive.type }}
+  ports:
+    - name: {{ .Values.maxscale.guiservice-passive.name }}
+      port: {{ .Values.maxscale.guiservice-passive.port }}
+      targetPort: {{ .Values.maxscale.guiservice-passive.targetPort }}
   selector:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-maxscale

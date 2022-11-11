@@ -354,11 +354,16 @@ maxscale:
     port: 3307
     name: rwsplit
     targetPort: 3307
-  guiService:
+  guiservice-active:
     type: ClusterIP
     port: 8989
-    name: guiservice
+    name: guiservice-active
     targetPort: 8989
+  guiservice-passive:
+    type: ClusterIP
+    port: 8989
+    name: guiservice-passive
+    targetPort: 8988
   replicaCount: 2
   metrics:
     enabled: false
