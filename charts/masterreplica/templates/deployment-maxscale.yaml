@@ -93,6 +93,8 @@ spec:
               containerPort: {{ .Values.maxscale.masterOnlyService.port }}
             - name: {{ .Values.maxscale.rwService.name }}
               containerPort: {{ .Values.maxscale.rwService.port }}
+            - name: {{ .Values.maxscale.guiService.name }}
+              containerPort: {{ .Values.maxscale.guiService.port }}
           volumeMounts:
           - name: "config"
             mountPath: "/etc/maxscale.cnf"
