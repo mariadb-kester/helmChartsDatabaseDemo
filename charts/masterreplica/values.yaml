@@ -361,9 +361,9 @@ maxscale:
     targetPort: 8989
   guiservicepassive:
     type: ClusterIP
-    port: 8989
+    port: 8988
     name: gui-passive
-    targetPort: 8988
+    targetPort: 8989
   replicaCount: 2
   metrics:
     enabled: false
