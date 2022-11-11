@@ -124,6 +124,11 @@ maxscaleConfigurationMaster: |-
     log_warning=on
     # Enable or disable the logging of messages whose syslog priority is debug
     log_debug=on
+    admin_enabled=1
+    admin_auth=1
+    admin_host=0.0.0.0
+    admin_gui=1
+    admin_secure_gui=false
     ############################################
     ## Settings for splitting read and writes ##
     ############################################
@@ -198,24 +203,6 @@ maxscaleConfigurationMaster: |-
     port=$DB3_PORT
     protocol=MariaDBBackend
     priority=$DB3_PRIO
-    #############################
-    ## Used for Binlog Routing ##
-    #############################
-    #[BinlogRouting-Service]
-    #type=service
-    #servers=db1,db2,db3
-    #router=binlogrouter
-    #user=$MAXSCALE_USER
-    #password=$MAXSCALE_USER_PASSWORD
-    #server_id=1001003
-    #binlogdir=/var/lib/maxscale/
-    #heartbeat=60
-    #burstsize=1M
-    #[BinlogRouting-Listener]
-    #type=listener
-    #service=BinlogRouting-Service
-    #protocol=$BINLOG_PROTOCOL
-    #port=$BINLOG_PORT
 
 maxscaleConfigurationPassive: |-
     ###############################################
@@ -239,6 +226,11 @@ maxscaleConfigurationPassive: |-
     # Enable or disable the logging of messages whose syslog priority is debug
     log_debug=on
     passive=true
+    admin_enabled=1
+    admin_auth=1
+    admin_host=0.0.0.0
+    admin_gui=1
+    admin_secure_gui=false
     ############################################
     ## Settings for splitting read and writes ##
     ############################################
@@ -313,24 +305,6 @@ maxscaleConfigurationPassive: |-
     port=$DB3_PORT
     protocol=MariaDBBackend
     priority=$DB3_PRIO
-    #############################
-    ## Used for Binlog Routing ##
-    #############################
-    #[BinlogRouting-Service]
-    #type=service
-    #servers=db1,db2,db3
-    #router=binlogrouter
-    #user=$MAXSCALE_USER
-    #password=$MAXSCALE_USER_PASSWORD
-    #server_id=1001003
-    #binlogdir=/var/lib/maxscale/
-    #heartbeat=60
-    #burstsize=1M
-    #[BinlogRouting-Listener]
-    #type=listener
-    #service=BinlogRouting-Service
-    #protocol=$BINLOG_PROTOCOL
-    #port=$BINLOG_PORT
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -380,6 +354,11 @@ maxscale:
     port: 3307
     name: rwsplit
     targetPort: 3307
+  guiService:
+    type: ClusterIP
+    port: 8989
+    name: guiservice
+    targetPort: 8989
   replicaCount: 2
   metrics:
     enabled: false

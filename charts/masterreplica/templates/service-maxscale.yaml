@@ -36,4 +36,23 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "masterreplica.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-maxscale
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.maxscale.guiService.name }}
+  labels:
+    app.kubernetes.io/name: {{ include "masterreplica.name" . }}
+    helm.sh/chart: {{ include "masterreplica.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.maxscale.guiService.type }}
+  ports:
+    - name: {{ .Values.maxscale.guiService.name }}
+      port: {{ .Values.maxscale.guiService.port }}
+      targetPort: {{ .Values.maxscale.guiService.targetPort }}
+  selector:
+    app.kubernetes.io/name: {{ include "masterreplica.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-maxscale
 {{- end }}
