@@ -84,7 +84,7 @@ spec:
           - name: NODE_ADDRESS
             value: "eth0"
           - name: SST_METHOD
-            value: "rsync"
+            value: "mariabackup"
           - name: MARIADB_ROOT_SOCKET_AUTH
             value: "0"
 #          - name: MARIADB_DATABASE
