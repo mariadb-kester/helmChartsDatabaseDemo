@@ -410,6 +410,20 @@ entries:
   masterreplica:
   - apiVersion: v1
     appVersion: 1.16.1
+    created: "2022-11-11T14:16:41.570318396Z"
+    description: A Helm chart for deplying a master and replica MariaDB Database installation
+    digest: ab77977e9f2a54b2ead930b06a5b57089836074c8e56680676b5a368256addd0
+    home: http://github.com/mariadb-kester/helmChartsDatabaseDemo
+    maintainers:
+    - email: kesterriley@hotmail.com
+      name: kesterriley
+      url: https://github.com/mariadb-kester
+    name: masterreplica
+    urls:
+    - https://github.com/mariadb-kester/helmChartsDatabaseDemo/releases/download/masterreplica-0.2.18/masterreplica-0.2.18.tgz
+    version: 0.2.18
+  - apiVersion: v1
+    appVersion: 1.16.1
     created: "2022-11-11T13:52:04.63911924Z"
     description: A Helm chart for deplying a master and replica MariaDB Database installation
     digest: 321ce24bbd3b1173d0436b81c98be56b8861e6c79947fe2b7a983dcb314776cc
