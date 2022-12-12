@@ -63,10 +63,12 @@ service:
   port: 80
 
 ingress:
-  enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    helm.fluxcd.io/antecedent: default:helmrelease/dashboard-qtc
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io: ""
   hosts:
     - host: chart-example.local
       paths: []
